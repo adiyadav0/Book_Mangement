@@ -5,6 +5,9 @@ const bookController = require('../controllers/bookController')
 const reviewController = require('../controllers/reviewController')
 const auth = require('../auth/auth')
 
+
+
+router.post('/createLink', bookController.createLink)
 //USER API
 router.post('/register', userController.registration);
 router.post('/login', userController.login);

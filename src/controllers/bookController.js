@@ -6,7 +6,26 @@ const booksModel = require("../models/booksModel");
 const validation = require('../validator/validation')
 const moment = require('moment')
 const mongoose = require('mongoose');
+const aws= require('../controllers/aws')
 const reviewModel = require("../models/reviewModel");
+
+
+const createLink = async function(req,res)
+{
+  try{
+  let files = req.files
+  if(files && files.length>0)
+  {
+   let uploadFileURL = await aws.uploadFile(files[0])
+   res.status(201).send({status:true, URL:uploadFileURL})
+  }else{
+    res.status(400).send({ msg: "No file found" })
+  }
+}catch(error){
+  res.status(500).send({msg: error.message})
+}
+}
+
 
 //==============================================================================================================================================
 //                                                   create Book Api Here
@@ -292,6 +311,6 @@ const deleteBookById = async function(req,res){
 
 
 module.exports = {
-  createBook, getBookById, getBooks, updateBookById,deleteBookById
+  createBook, getBookById, getBooks, updateBookById,deleteBookById,createLink
 }
 

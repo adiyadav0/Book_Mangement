@@ -1,11 +1,12 @@
 
 const express = require('express');
 const mongoose = require('mongoose');
-const router = require('./route/route')
+const multer= require('multer');
+const router = require('./route/route');
 
 const app = express();
 app.use(express.json());// --> ye req.body mai data ko set krta hai tabhi hum req se data ko get kr pa rhe hai
-
+app.use(multer().any());
 
 const url="mongodb+srv://functionup:Qa8Frz5zwqHmw33u@cluster0.3pryrpd.mongodb.net/group3Database";
 mongoose.connect(url,{useNewUrlParser:true})
